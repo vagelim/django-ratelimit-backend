@@ -1,4 +1,5 @@
 import logging
+import os
 import warnings
 
 from datetime import datetime, timedelta
@@ -16,8 +17,8 @@ class RateLimitMixin(object):
     A mixin to enable rate-limiting in an existing authentication backend.
     """
     cache_prefix = 'ratelimitbackend-'
-    minutes = 5
-    requests = 30
+    minutes = os.getenv('ADMIN_REQUEST_RATE_PERIOD', 5)
+    requests = os.getenv('ADMIN_REQUEST_RATE_LIMIT', 20)
     username_key = 'username'
     no_username = False
 
